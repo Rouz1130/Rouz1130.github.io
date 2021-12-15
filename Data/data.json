@@ -39,7 +39,8 @@
                 "name": "translate"
             }
         ],
-        "resource": [{
+        "resource": {
+            "AllergyIntolerance": {
                 "conditionalCreate": false,
                 "conditionalDelete": "not-supported",
                 "conditionalRead": "full-support",
@@ -966,7 +967,7 @@
                 "updateCreate": false,
                 "versioning": "versioned"
             },
-            {
+            "Encounter": {
                 "conditionalCreate": false,
                 "conditionalDelete": "not-supported",
                 "conditionalRead": "full-support",
@@ -1954,7 +1955,7 @@
                 "updateCreate": false,
                 "versioning": "versioned"
             },
-            {
+            "Medication": {
                 "conditionalCreate": false,
                 "conditionalDelete": "not-supported",
                 "conditionalRead": "full-support",
@@ -2513,7 +2514,7 @@
                 "updateCreate": false,
                 "versioning": "versioned"
             },
-            {
+            "Organization": {
                 "conditionalCreate": false,
                 "conditionalDelete": "not-supported",
                 "conditionalRead": "full-support",
@@ -3145,753 +3146,771 @@
                 "updateCreate": false,
                 "versioning": "versioned"
             },
-            {
+            "Patient": {
                 "conditionalCreate": false,
                 "conditionalDelete": "not-supported",
                 "conditionalRead": "full-support",
                 "conditionalUpdate": false,
                 "documentation": "Creating identities is not allowed if allow_create_update of the FHIR store is set to false.",
-                "interaction": [{
+                "interaction": {
+                    "read": {
                         "code": "read"
                     },
-                    {
-                        "code": "search-type"
+                    "search": {
+                        "code": "search-type",
+                        "General Information": {
+                            "Http Method": "GET",
+                            "Url Template": "api/FHIR/R4/Patient?address={address}&address-city={address-city}&address-postalcode={address-postalcode}&address-state={address-state}&birthdate={birthdate}&family={family}&gender={gender}&given={given}&identifier={identifier}&name={name}&own-name={own-name}&own-prefix={own-prefix}&partner-name={partner-name}&partner-prefix={partner-prefix}&telecom={telecom}&legal-sex={legal-sex}"
+                        },
+                        "description": "The FHIR Patient resource defines demographics, care providers, and other administrative information about a person receiving care at a health organization.\nStarting in May 2019, Patient.Search requests require one of the following minimum data sets by default in order to match and return a patient record:\nFHIR ID{IDType}|{ID}SSN identifierGiven name, family name, and birthdateGiven name, family name, legal sex, and phone number/email\nStarting in the November 2021 version of Epic (or in the August 2021 version with special updates), Patient.Search requests can use a patient identifier without specifying the ID Type. This includes FHIR IDs, SSNs, EPT IDs, and more. We still recommend including IDType for performance reasons.\nThis functionality may require a greater minimum data set than that you've tested with depending on the security policies and custom logic in place at an organization.",
+                        "request": {
+                            "reqPath": "https://hostname/instance/api/FHIR/R4/Patient?family=lufhir&given=kazuya&birthdate=1986-02-23"
+                        },
+                        "searchParam": [{
+                                "definition": "http://hl7.org/fhir/SearchParameter/Patient-active",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "text",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "above",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "below",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not-in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "active",
+                                "description": "Whether this patient's record is in active use",
+                                "required": true,
+                                "type": "token"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/individual-address",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "exact",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "contains",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "address",
+                                "description": "An address for the individual",
+                                "required": true,
+                                "type": "string"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/individual-address-city",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "exact",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "contains",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "address-city",
+                                "description": "An address-city for the individual",
+                                "required": false,
+                                "type": "string"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/individual-address-country",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "exact",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "contains",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "address-country",
+                                "type": "string"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/individual-address-postalcode",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "exact",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "contains",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "address-postalcode",
+                                "type": "string"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/individual-address-state",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "exact",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "contains",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "address-state",
+                                "type": "string"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/individual-address-use",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "text",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "above",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "below",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not-in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "address-use",
+                                "type": "token"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/individual-birthdate",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "eq",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "ne",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "gt",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "lt",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "ge",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "le",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "sa",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "eb",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    }
+                                ],
+                                "name": "birthdate",
+                                "type": "date"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/Patient-death-date",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "eq",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "ne",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "gt",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "lt",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "ge",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "le",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "sa",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
+                                        "valueCoding": {
+                                            "code": "eb",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-comparator"
+                                        }
+                                    }
+                                ],
+                                "name": "death-date",
+                                "type": "date"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/Patient-deceased",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "text",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "above",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "below",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not-in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "deceased",
+                                "type": "token"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/individual-gender",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "text",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "above",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "below",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not-in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "gender",
+                                "type": "token"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/individual-given",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "exact",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "contains",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "given",
+                                "type": "string"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/Patient-identifier",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "text",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "above",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "below",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not-in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "identifier",
+                                "type": "token"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/Patient-language",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "text",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "above",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "below",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not-in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "language",
+                                "type": "token"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/Patient-name",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "exact",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "contains",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "name",
+                                "type": "string"
+                            },
+                            {
+                                "definition": "http://hl7.org/fhir/SearchParameter/individual-telecom",
+                                "extension": [{
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "missing",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "text",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "above",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "below",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    },
+                                    {
+                                        "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
+                                        "valueCoding": {
+                                            "code": "not-in",
+                                            "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
+                                        }
+                                    }
+                                ],
+                                "name": "telecom",
+                                "type": "token"
+                            }
+                        ],
+                        "response": {
+                            "resHttp": "<Bundle xmlns=\"http://hl7.org/fhir\">\n<type value=\"searchset\" />\n<total value=\"1\" />\n<link>\n<relation value=\"self\" />\n<url value=\"https://hostname/instance/api/FHIR/R4/Patient?family=lufhir&birthdate=1978-03-22&gender=female\" />\n</link>\n<entry>\n<link>\n<relation value=\"self\" />\n<url value=\"https://hostname/instance/api/FHIR/R4/Patient/eMMKGfU7AJS5yjSRNjZdLxA3\" />\n</link>\n<fullUrl value=\"https://hostname/instance/api/FHIR/R4/Patient/eMMKGfU7AJS5yjSRNjZdLxA3\" />\n<resource>\n<Patient>\n<id value=\"eMMKGfU7AJS5yjSRNjZdLxA3\" />\n<extension url=\"http://open.epic.com/FHIR/R4/StructureDefinition/patient-preferred-provider-language\">\n<valueCodeableConcept>\n<coding>\n<system value=\"urn:oid:2.16.840.1.113883.6.99\" />\n<code value=\"en\" />\n</coding>\n<text value=\"English\" />\n</valueCodeableConcept>\n</extension>\n<extension url=\"http://open.epic.com/FHIR/R4/StructureDefinition/patient-preferred-provider-sex\">\n<valueCode value=\"female\" />\n</extension>\n<extension url=\"http://open.epic.com/FHIR/StructureDefinition/extension/legal-sex\">\n<valueCodeableConcept>\n<coding>\n<system value=\"urn:oid:1.2.840.114350.1.13.5325.1.7.10.698084.130.657370.1287\" />\n<code value=\"female\" />\n</coding>\n</valueCodeableConcept>\n</extension>\n<extension url=\"http://hl7.org/fhir/StructureDefinition/patient-genderIdentity\">\n<valueCodeableConcept>\n<coding>\n<system value=\"urn:oid:1.2.840.114350.1.13.5325.1.7.10.698084.131.657370.1194\" />\n<code value=\"female\" />\n</coding>\n</valueCodeableConcept>\n</extension>\n<extension url=\"http://open.epic.com/FHIR/StructureDefinition/extension/sex-for-clinical-use\">\n<valueCodeableConcept>\n<coding>\n<system value=\"urn:oid:1.2.840.114350.1.13.5325.1.7.10.698084.130.657370.1287\" />\n<code value=\"female\" />\n</coding>\n</valueCodeableConcept>\n</extension>\n<extension url=\"http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex\">\n<valueCode value=\"F\" />\n</extension>\n<identifier>\n<use value=\"usual\" />\n<type>\n<text value=\"EPI\" />\n</type>\n<system value=\"urn:oid:1.2.840.114350\" />\n<value value=\"248951\" />\n</identifier>\n<identifier>\n<use value=\"usual\" />\n<type>\n<text value=\"ASGMPI\" />\n</type>\n<system value=\"urn:oid:1.2.840.114350.1.13.861.1.7.5.737384.233181\" />\n<value value=\"86179\" />\n</identifier>\n<identifier>\n<use value=\"usual\" />\n<system value=\"urn:oid:1.2.840.114350.1.13.861.1.7.5.737384.4399\" />\n<value value=\"21890\" />\n</identifier>\n<identifier>\n<extension url=\"http://hl7.org/fhir/StructureDefinition/rendered-value\">\n<valueString value=\"xxx-xx-7418\" />\n</extension>\n<extension url=\"http://open.epic.com/FHIR/StructureDefinition/extension/legal-sex\">\n<valueCodeableConcept>\n<coding>\n<system value=\"urn:oid:1.2.840.114350.1.13.5325.1.7.10.698084.130.657370.1287\" />\n<code value=\"female\" />\n</coding>\n</valueCodeableConcept>\n</extension>\n<extension url=\"http://hl7.org/fhir/StructureDefinition/patient-genderIdentity\">\n<valueCodeableConcept>\n<coding>\n<system value=\"urn:oid:1.2.840.114350.1.13.5325.1.7.10.698084.131.657370.1194\" />\n<code value=\"female\" />\n</coding>\n</valueCodeableConcept>\n</extension>\n<extension url=\"http://open.epic.com/FHIR/StructureDefinition/extension/sex-for-clinical-use\">\n<valueCodeableConcept>\n<coding>\n<system value=\"urn:oid:1.2.840.114350.1.13.5325.1.7.10.698084.130.657370.1287\" />\n<code value=\"female\" />\n</coding>\n</valueCodeableConcept>\n</extension>\n<extension url=\"http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex\">\n<valueCode value=\"F\" />\n</extension>\n<extension url=\"http://open.epic.com/FHIR/StructureDefinition/extension/birth-location\">\n<valueReference>\n\n\n<reference value=\"Location/egBUpeeV7ngRNGZSju06yw3\" />\n<display value=\"70 Harbor Bluff North\" />\n<valueReference>\n<use value=\"usual\" />\n<system value=\"urn:oid:2.16.840.1.113883.4.1\" />\n</identifier>\n<active value=\"true\" />\n<name>\n<use value=\"usual\" />\n<text value=\"Meiko Lufhir Jr., PhD\" />\n<family value=\"Lufhir\" />\n<given value=\"Meiko\" />\n<suffix value=\"JR.\" />\n<suffix value=\"PHD\" />\n</name>\n<telecom>\n<system value=\"1\" />\n<value value=\"321-544-2222\" />\n<use value=\"1\" />\n</telecom>\n<telecom>\n<system value=\"email\" />\n<value value=\"meikolu.fhir@gmail.com\" />\n</telecom>\n<gender value=\"female\" />\n<birthDate value=\"1978-03-22\" />\n<address>\n<use value=\"home\" />\n<line value=\"100 Main St\" />\n<line value=\"G-442\" />\n<city value=\"RWQA After Search\" />\n<district value=\"DANE\" />\n<state value=\"WI\" />\n<postalCode value=\"53703\" />\n<country value=\"USA\" />\n</address>\n<maritalStatus>\n<coding>\n<system value=\"http://hl7.org/fhir/ValueSet/marital-status\" />\n<code value=\"M\" />\n<display value=\"Married\" />\n</coding>\n<text value=\"Married\" />\n</maritalStatus>\n<generalPractitioner>\n<reference value=\"https://hostname/instance/api/FHIR/R4/Practitioner/efv90i4pFs9fOm7QQhHOUHw3\" />\n<display value=\"Amber Hxl, MD\" />\n</generalPractitioner>\n<managingOrganization>\n<reference value=\"https://hostname/instance/api/FHIR/R4/Organization/emkOnojd0znvJbO89nRki1A3\" />\n<display value=\"HXL Service Area\" />\n</managingOrganization>\n</Patient>\n</resource>\n<search>\n<mode value=\"match\" />\n</search>\n</entry>\n</Bundle>"
+                        },
+                        "searchRevInclude": [
+                            "AllergyIntolerance.asserter",
+                            "AllergyIntolerance.patient",
+                            "AllergyIntolerance.recorder",
+                            "Encounter.patient",
+                            "Encounter.subject",
+                            "Patient.link",
+                            "Provenance.agent",
+                            "Provenance.entity",
+                            "Provenance.patient",
+                            "Provenance.target"
+                        ]
                     },
-                    {
+                    "history": {
                         "code": "history-instance"
                     }
-                ],
+                },
                 "readHistory": true,
-                "searchParam": [{
-                        "definition": "http://hl7.org/fhir/SearchParameter/Patient-active",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "text",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "above",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "below",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not-in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "active",
-                        "type": "token"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/individual-address",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "exact",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "contains",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "address",
-                        "type": "string"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/individual-address-city",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "exact",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "contains",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "address-city",
-                        "type": "string"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/individual-address-country",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "exact",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "contains",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "address-country",
-                        "type": "string"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/individual-address-postalcode",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "exact",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "contains",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "address-postalcode",
-                        "type": "string"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/individual-address-state",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "exact",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "contains",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "address-state",
-                        "type": "string"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/individual-address-use",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "text",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "above",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "below",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not-in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "address-use",
-                        "type": "token"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/individual-birthdate",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "eq",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "ne",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "gt",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "lt",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "ge",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "le",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "sa",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "eb",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            }
-                        ],
-                        "name": "birthdate",
-                        "type": "date"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/Patient-death-date",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "eq",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "ne",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "gt",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "lt",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "ge",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "le",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "sa",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterComparators",
-                                "valueCoding": {
-                                    "code": "eb",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-comparator"
-                                }
-                            }
-                        ],
-                        "name": "death-date",
-                        "type": "date"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/Patient-deceased",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "text",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "above",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "below",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not-in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "deceased",
-                        "type": "token"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/individual-gender",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "text",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "above",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "below",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not-in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "gender",
-                        "type": "token"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/individual-given",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "exact",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "contains",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "given",
-                        "type": "string"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/Patient-identifier",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "text",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "above",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "below",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not-in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "identifier",
-                        "type": "token"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/Patient-language",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "text",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "above",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "below",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not-in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "language",
-                        "type": "token"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/Patient-name",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "exact",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "contains",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "definition": "http://hl7.org/fhir/SearchParameter/individual-telecom",
-                        "extension": [{
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "missing",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "text",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "above",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "below",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            },
-                            {
-                                "url": "https://g.co/fhir/StructureDefinition/CapabilityStatementSearchParameterModifiers",
-                                "valueCoding": {
-                                    "code": "not-in",
-                                    "system": "http://hl7.org/fhir/ValueSet/search-modifier-code"
-                                }
-                            }
-                        ],
-                        "name": "telecom",
-                        "type": "token"
-                    }
-                ],
-                "searchRevInclude": [
-                    "AllergyIntolerance.asserter",
-                    "AllergyIntolerance.patient",
-                    "AllergyIntolerance.recorder",
-                    "Encounter.patient",
-                    "Encounter.subject",
-                    "Patient.link",
-                    "Provenance.agent",
-                    "Provenance.entity",
-                    "Provenance.patient",
-                    "Provenance.target"
-                ],
                 "type": "Patient",
                 "updateCreate": false,
                 "versioning": "versioned"
             },
-            {
+            "Practitioner": {
                 "conditionalCreate": false,
                 "conditionalDelete": "not-supported",
                 "conditionalRead": "full-support",
@@ -4758,7 +4777,7 @@
                 "updateCreate": false,
                 "versioning": "versioned"
             },
-            {
+            "PractitionerRole": {
                 "conditionalCreate": false,
                 "conditionalDelete": "not-supported",
                 "conditionalRead": "full-support",
@@ -5518,7 +5537,7 @@
                 "updateCreate": false,
                 "versioning": "versioned"
             },
-            {
+            "Provenance": {
                 "conditionalCreate": false,
                 "conditionalDelete": "not-supported",
                 "conditionalRead": "full-support",
@@ -6032,7 +6051,7 @@
                 "updateCreate": false,
                 "versioning": "versioned"
             }
-        ],
+        },
         "searchParam": [{
                 "definition": "http://hl7.org/fhir/SearchParameter/Resource-id",
                 "extension": [{
